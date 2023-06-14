@@ -13,13 +13,11 @@ const App = () => {
 
   return (
     <main>
-      <h1>WELCOME TO FEC</h1>
       {tasks.map((task) => (
         <span className="task" key={task.id}>
           {task.description}
         </span>
       ))}
-      <footer>Heyo</footer>
     </main>
   );
 };
