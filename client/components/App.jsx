@@ -18,6 +18,7 @@ const App = () => {
           {task.description}
         </span>
       ))}
+      <footer>Heyo</footer>
     </main>
   );
 };
