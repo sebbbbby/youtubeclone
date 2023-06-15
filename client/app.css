@@ -25,3 +25,17 @@ body {
 .task > * + * {
   margin-left: 4px;
 }
+.sidebar {
+  background: black;
+  width: 200px;
+  height: 400px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+.sidebar.show {
+  left: 0;
+}

@@ -11,11 +11,12 @@ import {
 } from "@heroicons/react/outline";
 import { BsBell } from "react-icons/bs";
 import { BiVideoPlus } from "react-icons/bi";
+import Sidebar from "./Sidebar";
 
 function Header() {
   const [inputSearch, setInputSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+  const [showSidebar, setShowSidebar] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -25,9 +26,15 @@ function Header() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+  const handleSidebarToggle = () => {
+    setShowSidebar((prevState) => !prevState);
+    console.log("sidebar clicked");
+  };
   return (
-    <div className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white">
+    <div
+      className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white"
+      onClick={handleSidebarToggle}
+    >
       <div className="flex cursor-pointer">
         <MenuIcon className="h-7 mr-2" />
         <img
@@ -37,14 +44,14 @@ function Header() {
         />
       </div>
       <div className="flex items-center w-full sm:w-auto">
-        <form className="flex w-full sm:w-96 lg:w-128 items-center bg-[#313131] rounded-r-full">
+        <form className="flex w-full sm:w-96 lg:w-128 items-center bg-[#313131] rounded-r-md">
           <input
             type="text"
             placeholder="Search"
-            className="bg-black flex-1 h-10 rounded-l-full py-2 px-4"
+            className="bg-black flex-1 h-10"
           />
-          <button className="h-10 w-16 flex items-center justify-center bg-[#313131] rounded-r-full ">
-            <SearchIcon className="h-5 rounded-r" />
+          <button className="h-10 w-16 flex items-center justify-center bg-[#313131]">
+            <SearchIcon className="h-5" />
           </button>
         </form>
         <button className="bg-black h-10 w-10 ml-4 rounded-full flex justify-center items-center">
@@ -55,8 +62,10 @@ function Header() {
         <BiVideoPlus className="h-6 w-6 cursor-pointer" />
         <BsBell className="h-5 w-6 cursor-pointer" />
         <DotsVerticalIcon className="h-6 cursor-pointer" />
+
         {/* Where user login can go */}
       </div>
+      {showSidebar && <Sidebar setShowSidebar={setShowSidebar} />}
     </div>
   );
 }
