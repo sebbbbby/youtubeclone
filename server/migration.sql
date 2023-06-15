@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS youtubevideos;
 
-CREATE TABLE tasks (
-  id SERIAL,
-  description TEXT
+CREATE TABLE youtubevideos (
+    id SERIAL PRIMARY KEY,
+    video_id VARCHAR(255) UNIQUE,
+    title TEXT,
+    description TEXT,
+    url VARCHAR(255),
+    published_at TIMESTAMPTZ,
+    channel_id VARCHAR(255),
+    channel_title VARCHAR(255)
 );
-
-INSERT INTO tasks(description) VALUES('Do the dishes');
-INSERT INTO tasks(description) VALUES('Walk the dog');
-INSERT INTO tasks(description) VALUES('Sweep the floor');
-INSERT INTO tasks(description) VALUES('Do your homework');
-INSERT INTO tasks(description) VALUES('Beat Elden Ring');
