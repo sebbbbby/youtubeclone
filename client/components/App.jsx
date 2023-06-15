@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
-
   useEffect(() => {
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((tasks) => {
-        setTasks(tasks);
-      });
+    getVideos();
   }, []);
+
+  const getVideos = () => {
+    axios
+      .get("/api/videos")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching videos", error);
+      });
+  };
 
   return (
     <main>
-      {tasks.map((task) => (
-        <span className="task" key={task.id}>
-          {task.description}
-        </span>
-      ))}
+      <h1>Hello World</h1>
     </main>
   );
 };
