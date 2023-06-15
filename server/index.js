@@ -13,64 +13,8 @@ const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR
 
 app.use(express.json())
 
-app.get('/api/videos', async (req, res) => {
-    try {
-        const response = await axios.get(youtubeVideoPopular, {
-            params: {
-                part: 'snippet,contentDetails,statistics',
-                chart: 'mostPopular',
-                maxResults: 1,
-                key: process.env.API_KEY,
-            },
-        })
+seb_branch
 
-        const videoData = response.data.items.map((item) => {
-            return {
-                video_id: item.id || null,
-                title: item.snippet.title || null,
-                description: item.snippet.description || null,
-                url: `https://www.youtube.com/watch?v=${item.id}` || null,
-                published_at: item.snippet.publishedAt || null,
-                channel_id: item.snippet.channelId || null,
-                channel_title: item.snippet.channelTitle || null,
-                view_count: video.statistics.viewCount || null,
-                like_count: video.statistics.likeCount || null,
-                dislike_count: video.statistics.dislikeCount || null,
-            }
-        })
-        for (const video of videoData) {
-            await sql`INSERT INTO youtubevideos (
-        video_id,
-        title,
-        description,
-        thumbnail_url,
-        url,
-        published_at,
-        channel_id,
-        channel_title.
-        view_count,
-        like_count,
-        dislike_count
-      ) VALUES (
-        ${video.video_id},
-        ${video.title},
-        ${video.description},
-        ${video.thumbnail_url},
-        ${video.url},
-        ${video.published_at},
-        ${video.channel_id},
-        ${video.channel_title}
-        ${video.view_count},
-        ${video.like_count},
-        ${video.dislike_count}
-      ) ON CONFLICT (video_id) DO NOTHING`
-        }
-        res.send(response.data)
-    } catch (error) {
-        console.error(error)
-        res.status(500).send('Error occurred while fetching videos')
-    }
-})
 //server side get request for search results. dont think we need to save anything with this request
 app.get('/api/search/:search', async (req, res) => {
     const searchWord = req.params.search
@@ -102,6 +46,66 @@ app.get('/api/search/:search', async (req, res) => {
         res.status(500).send('An error occurred')
     }
 })
+
+// app.get("/api/videos", async (req, res) => {
+//   try {
+//     const response = await axios.get(youtubeVideoPopular, {
+//       params: {
+//         part: "snippet,contentDetails,statistics",
+//         chart: "mostPopular",
+//         maxResults: 1,
+//         key: process.env.API_KEY,
+//       },
+//     });
+
+//     const videoData = response.data.items.map((item) => {
+//       return {
+//         video_id: item.id || null,
+//         title: item.snippet.title || null,
+//         description: item.snippet.description || null,
+//         url: `https://www.youtube.com/watch?v=${item.id}` || null,
+//         published_at: item.snippet.publishedAt || null,
+//         channel_id: item.snippet.channelId || null,
+//         channel_title: item.snippet.channelTitle || null,
+//         view_count: video.statistics.viewCount || null,
+//         like_count: video.statistics.likeCount || null,
+//         dislike_count: video.statistics.dislikeCount || null,
+//       };
+//     });
+//     for (const video of videoData) {
+//       await sql`INSERT INTO youtubevideos (
+//         video_id,
+//         title,
+//         description,
+//         thumbnail_url,
+//         url,
+//         published_at,
+//         channel_id,
+//         channel_title.
+//         view_count,
+//         like_count,
+//         dislike_count
+//       ) VALUES (
+//         ${video.video_id},
+//         ${video.title},
+//         ${video.description},
+//         ${video.thumbnail_url},
+//         ${video.url},
+//         ${video.published_at},
+//         ${video.channel_id},
+//         ${video.channel_title}
+//         ${video.view_count},
+//         ${video.like_count},
+//         ${video.dislike_count}
+//       ) ON CONFLICT (video_id) DO NOTHING`;
+//     }
+//     res.send(response.data);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Error occurred while fetching videos");
+//   }
+// });
+ master
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
