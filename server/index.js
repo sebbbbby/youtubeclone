@@ -25,13 +25,51 @@ app.get('/videos', async (req, res) => {
     }
 })
 //below is the the web app specific code to be used throughout the website to search for keywords/category/etc. CAVEAT- the word MUST be in the description, so its not based off youtube categories.
-app.get('/search/:searchVideo', async (req, res) => {
-    try {
-        const searchVideo = req.params.searchVideo
-        const query =
-            await sql`SELECT * FROM youtubevideos WHERE description ILIKE '%' || ${searchVideo} || '%'`
+//will keep the orignal just incase things get wild in the future
+// app.get('/search/:searchVideo', async (req, res) => {
+//     try {
+//         const searchVideo = req.params.searchVideo
+//         const query =
+//             await sql`SELECT * FROM youtubevideos WHERE description ILIKE '%' || ${searchVideo} || '%'`
 
-        res.json(query)
+//         res.json(query)
+//     } catch (error) {
+//         console.error(error)
+//         res.status(500).send('Error occurred while fetching videos')
+//     }
+// })
+
+app.get('/search/:search', async (req, res) => {
+    try {
+        const searchVideo = req.params.search
+        const searchWords = searchVideo.split(' ')
+
+        let query = 'SELECT * FROM youtubevideos WHERE '
+
+        for (let i = 0; i < searchWords.length; i++) {
+            const word = searchWords[i]
+            if (
+                word.toUpperCase().includes('DROP') ||
+                word.toUpperCase().includes('TABLE') ||
+                word.toUpperCase().includes('TRUNCATE') ||
+                word.toUpperCase().includes('SELECT') ||
+                word.toUpperCase().includes('UPDATE') ||
+                word.toUpperCase().includes('*')
+            ) {
+                //does not actually send a error status of 420 but it does stop the user from searching the words above
+                res.status(420)
+                return
+            }
+
+            query += `description ILIKE '%${searchWords[i]}%'`
+            if (i < searchWords.length - 1) {
+                query += ' OR '
+            }
+        }
+        //unsafe allows for a lot of raw SQL data so thats why there are a few 'banned' words that users can not use to mess up our table on accident
+        const result = await sql.unsafe(query)
+
+        res.json(result)
     } catch (error) {
         console.error(error)
         res.status(500).send('Error occurred while fetching videos')

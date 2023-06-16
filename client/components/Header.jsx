@@ -59,7 +59,7 @@ function Header() {
                     onSubmit={(e) => {
                         e.preventDefault()
                         fetchData()
-                        console.log(inputSearch, 'Hello there')
+                        // console.log(inputSearch)
                     }}
                 >
                     <input
