@@ -37,13 +37,13 @@ function Header() {
         />
       </div>
       <div className="flex items-center w-full sm:w-auto">
-        <form className="flex w-full sm:w-96 lg:w-128 items-center bg-[#313131] rounded-r-full">
+        <form className="flex w-full sm:w-96 lg:w-128 items-center bg-[#313131] rounded-full">
           <input
             type="text"
             placeholder="Search"
             className="bg-black flex-1 h-10 rounded-l-full py-2 px-4"
           />
-          <button className="h-10 w-16 flex items-center justify-center bg-[#313131] rounded-r-full ">
+          <button className="h-10 w-16 flex items-center justify-center bg-[#313131] rounded-full ">
             <SearchIcon className="h-5 rounded-r" />
           </button>
         </form>
