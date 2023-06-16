@@ -2,6 +2,7 @@ import express from "express";
 import postgres from "postgres";
 import dotenv from "dotenv";
 import axios from "axios";
+import cors from "cors";
 
 dotenv.config({ path: "../.env" });
 
@@ -11,39 +12,50 @@ const app = express();
 const api_key = process.env.API_KEY;
 const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR;
 
+app.use(cors());
 app.use(express.json());
 
-//server side get request for search results. dont think we need to save anything with this request
-app.get("/api/search/:search", async (req, res) => {
-  const searchWord = req.params.search;
-
-  if (!searchWord) {
-    return res.status(400).send("Missing search word!");
-  }
-
+app.get("/videos", async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search`,
-      {
-        //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
-        params: {
-          part: "snippet",
-          maxResults: 1,
-          order: "relevance",
-          q: `${searchWord}`,
-          type: "video",
-          key: `${api_key}`,
-        },
-      }
-    );
-
-    const data = response.data;
-    res.json(data);
+    const videos = await sql`SELECT * FROM youtubevideos`;
+    res.json(videos);
   } catch (error) {
-    console.error("Error occurred while searching YouTube videos:", error);
+    console.error(error);
     res.status(500).send("An error occurred");
   }
 });
+
+//server side get request for search results. dont think we need to save anything with this request
+// app.get("/api/search/:search", async (req, res) => {
+//   const searchWord = req.params.search;
+
+//   if (!searchWord) {
+//     return res.status(400).send("Missing search word!");
+//   }
+
+//   try {
+//     const response = await axios.get(
+//       `https://www.googleapis.com/youtube/v3/search`,
+//       {
+//         //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
+//         params: {
+//           part: "snippet",
+//           maxResults: 1,
+//           order: "relevance",
+//           q: `${searchWord}`,
+//           type: "video",
+//           key: `${api_key}`,
+//         },
+//       }
+//     );
+
+//     const data = response.data;
+//     res.json(data);
+//   } catch (error) {
+//     console.error("Error occurred while searching YouTube videos:", error);
+//     res.status(500).send("An error occurred");
+//   }
+// });
 
 // app.get("/api/videos", async (req, res) => {
 //   try {
@@ -61,13 +73,14 @@ app.get("/api/search/:search", async (req, res) => {
 //         video_id: item.id || null,
 //         title: item.snippet.title || null,
 //         description: item.snippet.description || null,
+//         thumbnail_url: item.snippet.thumbnails.default.url || null,
 //         url: `https://www.youtube.com/watch?v=${item.id}` || null,
 //         published_at: item.snippet.publishedAt || null,
 //         channel_id: item.snippet.channelId || null,
 //         channel_title: item.snippet.channelTitle || null,
-//         view_count: video.statistics.viewCount || null,
-//         like_count: video.statistics.likeCount || null,
-//         dislike_count: video.statistics.dislikeCount || null,
+//         view_count: item.statistics.viewCount || null,
+//         like_count: item.statistics.likeCount || null,
+//         dislike_count: item.statistics.dislikeCount || null,
 //       };
 //     });
 //     for (const video of videoData) {
@@ -79,7 +92,7 @@ app.get("/api/search/:search", async (req, res) => {
 //         url,
 //         published_at,
 //         channel_id,
-//         channel_title.
+//         channel_title,
 //         view_count,
 //         like_count,
 //         dislike_count
@@ -91,7 +104,7 @@ app.get("/api/search/:search", async (req, res) => {
 //         ${video.url},
 //         ${video.published_at},
 //         ${video.channel_id},
-//         ${video.channel_title}
+//         ${video.channel_title},
 //         ${video.view_count},
 //         ${video.like_count},
 //         ${video.dislike_count}
