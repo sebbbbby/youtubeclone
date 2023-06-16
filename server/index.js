@@ -104,7 +104,7 @@ app.get("/videos", async (req, res) => {
 //       params: {
 //         part: "snippet,contentDetails,statistics",
 //         chart: "mostPopular",
-//         maxResults: 1,
+//         maxResults: 15,
 //         key: process.env.API_KEY,
 //       },
 //     });
@@ -160,17 +160,17 @@ app.get("/videos", async (req, res) => {
 
 //this is pulling from out DB NOT from the API
 //the description LIKE is searching for the keywork within a videos description
-app.get('/search/:searchVideo', async (req, res) => {
-    try {
-        const searchVideo = req.params.searchVideo
-        const response =
-            await sql`SELECT * FROM youtubevideos WHERE description LIKE %${searchVideo}%`
-        res.send(response)
-    } catch (error) {
-        console.error(error)
-        res.status(500).send('Error occurred while fetching videos')
-    }
-})
+app.get("/search/:searchVideo", async (req, res) => {
+  try {
+    const searchVideo = req.params.searchVideo;
+    const response =
+      await sql`SELECT * FROM youtubevideos WHERE description LIKE %${searchVideo}%`;
+    res.send(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error occurred while fetching videos");
+  }
+});
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
-})
+  console.log(`Listening on port ${PORT}`);
+});
