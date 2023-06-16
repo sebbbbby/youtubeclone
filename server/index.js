@@ -1,51 +1,51 @@
-import express from 'express'
-import postgres from 'postgres'
-import dotenv from 'dotenv'
-import axios from 'axios'
+import express from "express";
+import postgres from "postgres";
+import dotenv from "dotenv";
+import axios from "axios";
 
-dotenv.config({ path: '../.env' })
+dotenv.config({ path: "../.env" });
 
-const PORT = process.env.PORT
-const sql = postgres(process.env.DATABASE_URL)
-const app = express()
-const api_key = process.env.API_KEY
-const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR
+const PORT = process.env.PORT;
+const sql = postgres(process.env.DATABASE_URL);
+const app = express();
+const api_key = process.env.API_KEY;
+const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR;
 
-app.use(express.json())
+app.use(express.json());
 
-seb_branch
+// seb_branch
 
 //server side get request for search results. dont think we need to save anything with this request
-app.get('/api/search/:search', async (req, res) => {
-    const searchWord = req.params.search
+app.get("/api/search/:search", async (req, res) => {
+  const searchWord = req.params.search;
 
-    if (!searchWord) {
-        return res.status(400).send('Missing search word!')
-    }
+  if (!searchWord) {
+    return res.status(400).send("Missing search word!");
+  }
 
-    try {
-        const response = await axios.get(
-            `https://www.googleapis.com/youtube/v3/search`,
-            {
-                //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
-                params: {
-                    part: 'snippet',
-                    maxResults: 1,
-                    order: 'relevance',
-                    q: `${searchWord}`,
-                    type: 'video',
-                    key: `${api_key}`,
-                },
-            }
-        )
+  try {
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search`,
+      {
+        //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
+        params: {
+          part: "snippet",
+          maxResults: 1,
+          order: "relevance",
+          q: `${searchWord}`,
+          type: "video",
+          key: `${api_key}`,
+        },
+      }
+    );
 
-        const data = response.data
-        res.json(data)
-    } catch (error) {
-        console.error('Error occurred while searching YouTube videos:', error)
-        res.status(500).send('An error occurred')
-    }
-})
+    const data = response.data;
+    res.json(data);
+  } catch (error) {
+    console.error("Error occurred while searching YouTube videos:", error);
+    res.status(500).send("An error occurred");
+  }
+});
 
 // app.get("/api/videos", async (req, res) => {
 //   try {
@@ -105,8 +105,8 @@ app.get('/api/search/:search', async (req, res) => {
 //     res.status(500).send("Error occurred while fetching videos");
 //   }
 // });
- master
+// master;
 
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
-})
+  console.log(`Listening on port ${PORT}`);
+});
