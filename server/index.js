@@ -15,6 +15,7 @@ const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR
 app.use(cors())
 app.use(express.json())
 
+
 app.get('/videos', async (req, res) => {
     try {
         const videos = await sql`SELECT * FROM youtubevideos`
@@ -37,6 +38,7 @@ app.get('/search/:searchVideo', async (req, res) => {
         res.status(500).send('Error occurred while fetching videos')
     }
 })
+
 
 //this slightly redudant code allows us to better tailor out data base if we want to add specific youtube videos into our database
 //the intention is not to actually utilize it with our front end BUT allow us to input videos into our database and make it more tailored to whatever we please, things like thumbs up, viewcount, dislike will be NULL with this api because the response does not provide the information, nonetheless i kept it in there for consistency and too allow for a few ideas later such as IF blahblah === NULL then give random Number -sp
@@ -110,6 +112,7 @@ app.get('/search/:searchVideo', async (req, res) => {
 //         res.status(500).send('Error occurred while fetching videos')
 //     }
 // })
+
 
 // app.get('/api/videos', async (req, res) => {
 //     try {
@@ -187,5 +190,5 @@ app.get('/search/:searchVideo', async (req, res) => {
 // })
 
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
-})
+	console.log(`Listening on port ${PORT}`);
+});
