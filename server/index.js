@@ -146,20 +146,16 @@ app.get('/api/videos', async (req, res) => {
 })
 //this is pulling from out DB NOT from the API
 //the description LIKE is searching for the keywork within a videos description
-app.get('/search/:searchVideo', (req, res) => {
-    const searchVideo = req.params.searchVideo
-    sql.query(
-        `SELECT * FROM youtubevideos WHERE description LIKE $1`,
-        ['%' + searchVideo + '%'],
-        (err, res) => {
-            if (err) {
-                console.error(err)
-            } else {
-                res.send(result.rows[0])
-                console.log(result.rows[0])
-            }
-        }
-    )
+app.get('/search/:searchVideo', async (req, res) => {
+    try {
+        const searchVideo = req.params.searchVideo
+        const response =
+            await sql`SELECT * FROM youtubevideos WHERE description LIKE %${searchVideo}%`
+        res.send(response)
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('Error occurred while fetching videos')
+    }
 })
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
