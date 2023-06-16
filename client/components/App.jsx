@@ -1,32 +1,36 @@
-import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import Header from "./Header.jsx";
-import { Routes, useNavigate, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-const App = () => {
-  //   useEffect(() => {
-  //     getVideos();
-  //   }, []);
+const YouTubeWebsite = () => {
+  const [videos, setVideos] = useState([]);
 
-  // const getVideos = () => {
-  //   axios
-  //     .get("/api/videos")
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching videos", error);
-  //     });
-  // };
+  useEffect(() => {
+    // Insert our Youtube API here:
+    fetch("")
+      .then((response) => response.json())
+      .then((data) => setVideos(data))
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
-    <>
-      <Header />
-      <Routes />
-      {/* <Route path="/home" element={<Home />} /> */}
-      <Routes />
-    </>
+    <div>
+      <header>
+        <h1>Welcome to Office Avengers' YouTube Website</h1>
+      </header>
+
+      <div id="videos">
+        {videos.map((video) => (
+          <div className="video" key={video.id}>
+            <img
+              className="thumbnail"
+              src={video.thumbnail}
+              alt={video.title}
+            />
+            <div className="title">{video.title}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default App;
+export default YouTubeWebsite;
