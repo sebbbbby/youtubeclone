@@ -87,7 +87,7 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <p>Liked videos</p>
             </div>
             <div className="divider"></div>
-            <p>Explore</p>
+            <h2>Explore</h2>
             <div className="flex items-center">
               <BsFire className="h-7 mr-2" />
               <p>Trending</p>
@@ -133,7 +133,7 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <p>Podcasts</p>
             </div>
             <div className="divider"></div>
-            <p>More from YouTube</p>
+            <h2>More from YouTube</h2>
             <div className="flex items-center">
               <img className="h-7 mr-2" id="imgSrc" src={ytlogomobile} />
               <p>YouTube Premium</p>
@@ -172,9 +172,30 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <p>Send feedback</p>
             </div>
             <div className="divider"></div>
-            <p>About</p>
-            <p> Press</p>
-            <p> Copyright</p>
+            <div className="footer" class="style-scoper">
+              <div id="guide-links" class="style-scope">
+                <a>About</a>
+                <a> Press</a>
+                <a> Copyright</a>
+                <a>Contact us</a>
+                <a>Creators</a>
+                <a>Advertise</a>
+                <a>Developers</a>
+              </div>
+              <div id="guide-links" class="style-scope">
+                <a></a>
+                <a>Terms</a>
+                <a>Privacy</a>
+                <a>Policy & Safety</a>
+                <a>How YouTube works</a>
+                <a>Test new features</a>
+                <a>NFL Sunday Ticket</a>
+              </div>
+              <div id="guide-links" class="style-scope">
+                <a></a>
+                <a>© 2023 Not Really Google</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

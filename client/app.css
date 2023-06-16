@@ -83,8 +83,8 @@ p {
   display: inline-block;
   width: 80%;
   height: 100%;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
   margin-left: 10px;
 }
 #imgSrc {
@@ -95,4 +95,40 @@ p {
   height: 1px;
   background-color: gray;
   margin: 8px 0;
+}
+h2 {
+  margin-left: 20px;
+  font-weight: bold;
+}
+.footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+#guide-links > a,
+#guide-links > a {
+  line-height: 1em;
+  display: inline-block;
+  text-decoration: none;
+  padding: 120;
+  font-size: small;
+  padding: 12 px 24px 0;
+  border-top: 1px solid var(--yt-spec-10-percent-layer);
+  margin-left: 20px;
+  margin-right: 5px;
+}
+user agent stylesheet a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 12 px 24px 0;
+  border-top: 1px solid var(--yt-spec-10-percent-layer);
+}
+div {
+  display: block;
+}
+ytd-guide-renderer {
+  display: inline-flex;
 }
