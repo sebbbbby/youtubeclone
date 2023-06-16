@@ -144,10 +144,12 @@ app.get('/api/videos', async (req, res) => {
         res.status(500).send('Error occurred while fetching videos')
     }
 })
+//this is pulling from out DB NOT from the API
+//the description LIKE is searching for the keywork within a videos description
 app.get('/search/:searchVideo', (req, res) => {
     const searchVideo = req.params.searchVideo
     sql.query(
-        `SELECT * FROM youtubevideos WHERE description LIKE $!`,
+        `SELECT * FROM youtubevideos WHERE description LIKE $1`,
         ['%' + searchVideo + '%'],
         (err, res) => {
             if (err) {
