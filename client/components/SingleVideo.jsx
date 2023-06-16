@@ -8,13 +8,13 @@ const SingleVideo = () => {
 			className="flex flex-col bg-transparent m-8 rounded-lg"
 			style={{ width: "320px" }}
 		>
-			<div className="relative">
+			<div className="relative group">
 				<img
 					src="https://i.ytimg.com/vi/4pZ6ZFvuNtU/mqdefault.jpg"
 					alt="Thumbnail image"
 					className="rounded-lg "
 				/>
-				<div className="absolute top-0 right-0 bg-black rounded-md m-2 h-8 w-8 flex justify-center items-center">
+				<div className="absolute top-0 right-0 bg-black rounded-md m-2 h-8 w-8 justify-center items-center hidden group-hover:flex">
 					<HiOutlineClock className=" text-white " />
 				</div>
 			</div>
