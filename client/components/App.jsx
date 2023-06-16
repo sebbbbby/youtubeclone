@@ -5,6 +5,7 @@ import { Routes, useNavigate, Route } from "react-router-dom";
 import SingleVideo from "./SingleVideo.jsx";
 
 const App = () => {
+
 	const [videos, setVideos] = useState(null);
 
 	useEffect(() => {
@@ -20,6 +21,22 @@ const App = () => {
 		};
 		fetchVideos();
 	}, []);
+
+    // useEffect(() => {
+    //     getVideos()
+    // }, [])
+
+    // const getVideos = () => {
+    //     axios
+    //         .get('/api/videos')
+    //         .then((response) => {
+    //             console.log(response.data)
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error fetching videos', error)
+    //         })
+    // }
+
 
 	const getVideos = () => {
 		axios
