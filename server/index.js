@@ -1,19 +1,20 @@
-import express from 'express'
-import postgres from 'postgres'
-import dotenv from 'dotenv'
-import axios from 'axios'
-import cors from 'cors'
+import express from "express";
+import postgres from "postgres";
+import dotenv from "dotenv";
+import axios from "axios";
+import cors from "cors";
 
-dotenv.config({ path: '../.env' })
+dotenv.config({ path: "../.env" });
 
-const PORT = process.env.PORT
-const sql = postgres(process.env.DATABASE_URL)
-const app = express()
-const api_key = process.env.API_KEY
-const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR
+const PORT = process.env.PORT;
+const sql = postgres(process.env.DATABASE_URL);
+const app = express();
+const api_key = process.env.API_KEY;
+const youtubeVideoPopular = process.env.YOUTUBEVIDEOSPOPULAR;
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
+
 
 
 app.get('/videos', async (req, res) => {
@@ -26,18 +27,18 @@ app.get('/videos', async (req, res) => {
     }
 })
 //below is the the web app specific code to be used throughout the website to search for keywords/category/etc. CAVEAT- the word MUST be in the description, so its not based off youtube categories.
-app.get('/search/:searchVideo', async (req, res) => {
-    try {
-        const searchVideo = req.params.searchVideo
-        const query =
-            await sql`SELECT * FROM youtubevideos WHERE description ILIKE '%' || ${searchVideo} || '%'`
+app.get("/search/:searchVideo", async (req, res) => {
+  try {
+    const searchVideo = req.params.searchVideo;
+    const query =
+      await sql`SELECT * FROM youtubevideos WHERE description ILIKE '%' || ${searchVideo} || '%'`;
 
-        res.json(query)
-    } catch (error) {
-        console.error(error)
-        res.status(500).send('Error occurred while fetching videos')
-    }
-})
+    res.json(query);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error occurred while fetching videos");
+  }
+});
 
 
 //this slightly redudant code allows us to better tailor out data base if we want to add specific youtube videos into our database
