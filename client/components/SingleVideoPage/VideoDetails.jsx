@@ -7,30 +7,32 @@ import { LuListPlus } from "react-icons/lu";
 import { RxDotsHorizontal } from "react-icons/rx";
 import logo from "../Images/logo.png";
 import SuggestionVideoCard from "./SuggestionVideoCard";
+import { useParams } from "react-router-dom";
 
 function VideoDetails() {
   const [video, setVideo] = useState();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [moreVideos, setMoreVideos] = useState([]);
+  const { videoId } = useParams();
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/videos");
-        if (res.data.length > 0) {
-          setVideo(res.data[0]);
+        const res = await axios.get(`http://localhost:3000/videos/${videoId}`); // fetch video using videoId
+        if (res.data) {
+          setVideo(res.data);
         }
       } catch (err) {
         console.log(err);
       }
     };
     fetchVideos();
-  }, []);
+  }, [videoId]);
 
   useEffect(() => {
     const fetchMoreVideos = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/videos");
+        const res = await axios.get("http://localhost:3000/videos");
         if (res.data.length > 0) {
           setMoreVideos(res.data);
         }

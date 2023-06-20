@@ -4,6 +4,7 @@ import Header from "./Header.jsx";
 import { Routes, useNavigate, Route } from "react-router-dom";
 
 import SingleVideo from "./SingleVideo.jsx";
+import VideoDetails from "./SingleVideoPage/VideoDetails.jsx";
 
 const App = () => {
   const [videos, setVideos] = useState(null);
@@ -61,14 +62,16 @@ const App = () => {
   return (
     <>
       <Header />
-      <Routes />
-      {/* <Route path="/home" element={<Home />} /> */}
-      <Routes />
+      <Routes>
+        <Route path="/video/:videoId" element={<VideoDetails />} />
+      </Routes>
       <div className="flex flex-wrap">
-        {videos && videos.map((video) => <SingleVideo video={video} />)}
+        {videos &&
+          videos.map((video) => (
+            <SingleVideo key={video.video_id} video={video} />
+          ))}
       </div>
     </>
   );
 };
-
 export default App;
