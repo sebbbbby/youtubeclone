@@ -40,7 +40,7 @@ app.get("/api/videos", async (req, res) => {
 //     }
 // })
 
-app.get("/search/:search", async (req, res) => {
+app.get("/api/search/:search", async (req, res) => {
 	try {
 		const searchVideo = req.params.search;
 		const searchWords = searchVideo.split(" ");
@@ -212,7 +212,7 @@ app.get("/search/:search", async (req, res) => {
 
 //this is pulling from out DB NOT from the API
 //the description LIKE is searching for the keywork within a videos description
-app.get("/search/:searchVideo", async (req, res) => {
+app.get("/api/search/:searchVideo", async (req, res) => {
 	try {
 		const searchVideo = req.params.searchVideo;
 		const response =
@@ -236,7 +236,7 @@ app.get("/search/:searchVideo", async (req, res) => {
 //     }
 // })
 
-app.get("/videos/:videoId", async (req, res) => {
+app.get("api/videos/:videoId", async (req, res) => {
 	try {
 		const videoId = req.params.videoId;
 		const video =
