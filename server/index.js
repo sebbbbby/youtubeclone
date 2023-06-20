@@ -236,7 +236,7 @@ app.get("/api/search/:searchVideo", async (req, res) => {
 //     }
 // })
 
-app.get("api/videos/:videoId", async (req, res) => {
+app.get("/api/videos/:videoId", async (req, res) => {
 	try {
 		const videoId = req.params.videoId;
 		const video =
