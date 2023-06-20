@@ -1,47 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import ytLogo from './Images/ytlogo.png'
-import ytlogomobile from './Images/ytlogomobile.png'
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import ytLogo from "./Images/ytlogo.png";
+import ytlogomobile from "./Images/ytlogomobile.png";
 import {
-    MenuIcon,
-    SearchIcon,
-    MicrophoneIcon,
-    ViewGridIcon,
-    DotsVerticalIcon,
-} from '@heroicons/react/outline'
-import { BsBell } from 'react-icons/bs'
-import { BiVideoPlus } from 'react-icons/bi'
-import axios from 'axios'
+  MenuIcon,
+  SearchIcon,
+  MicrophoneIcon,
+  ViewGridIcon,
+  DotsVerticalIcon,
+} from "@heroicons/react/outline";
+import { BsBell } from "react-icons/bs";
+import { BiVideoPlus } from "react-icons/bi";
+import axios from "axios";
 
 function Header() {
-    const [inputSearch, setInputSearch] = useState('')
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [inputSearch, setInputSearch] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth)
-        }
-        window.addEventListener('resize', handleResize)
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-    //below is fetching the data of what is searched in the Header searchbar. It will return an array of objects to be utilized. no props/setState created for the information
+  //below is fetching the data of what is searched in the Header searchbar. It will return an array of objects to be utilized. no props/setState created for the information
 
-    const fetchData = async () => {
-        console.log(inputSearch)
-        try {
-            const response = await fetch(
-                `http://localhost:3000/search/${inputSearch}`
-            )
-            const json = await response.json()
-            //this json variable is the array of objects that store the information
-            console.log(json)
-        } catch (error) {
-            console.error(error)
-        }
+  const fetchData = async () => {
+    console.log(inputSearch);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/search/${inputSearch}`
+      );
+      const json = await response.json();
+      //this json variable is the array of objects that store the information
+      console.log(json);
+    } catch (error) {
+      console.error(error);
     }
+  };
+
 
     return (
         <div className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white">
@@ -87,4 +88,4 @@ function Header() {
     )
 }
 
-export default Header
+export default Header;

@@ -1,32 +1,77 @@
-import React, { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
-import Header from './Header.jsx'
-import { Routes, useNavigate, Route } from 'react-router-dom'
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import Header from "./Header.jsx";
+import { Routes, useNavigate, Route } from "react-router-dom";
+
+import SingleVideo from "./SingleVideo.jsx";
+import VideoDetails from "./SingleVideoPage/VideoDetails.jsx";
 
 const App = () => {
-    // useEffect(() => {
-    //     getVideos()
-    // }, [])
+  const [videos, setVideos] = useState(null);
 
-    // const getVideos = () => {
-    //     axios
-    //         .get('/api/videos')
-    //         .then((response) => {
-    //             console.log(response.data)
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error fetching videos', error)
-    //         })
-    // }
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/videos");
+        if (res.data.length > 0) {
+          setVideos(res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchVideos();
+  }, []);
 
-    return (
-        <>
-            <Header />
-            <Routes />
-            {/* <Route path="/home" element={<Home />} /> */}
-            <Routes />
-        </>
-    )
-}
+  // const getVideos = () => {
+  //   axios
+  //     .get("/api/videos")
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching videos", error);
+  //     });
+  // };
+  // useEffect(() => {
+  //     getVideos()
+  // }, [])
+  // const getVideos = () => {
+  //     axios
+  //         .get('/api/videos')
+  //         .then((response) => {
+  //             console.log(response.data)
+  //         })
+  //         .catch((error) => {
+  //             console.error('Error fetching videos', error)
+  //         })
+  // }
 
-export default App
+  const getVideos = () => {
+    axios
+      .get("/videos")
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.error("Error fetching videos", error);
+      });
+  };
+
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path="/video/:videoId" element={<VideoDetails />} />
+      </Routes>
+      <div className="flex flex-wrap">
+        {videos &&
+          videos.map((video) => (
+            <SingleVideo key={video.video_id} video={video} />
+          ))}
+      </div>
+    </>
+  );
+};
+export default App;
