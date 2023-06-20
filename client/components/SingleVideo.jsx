@@ -14,7 +14,7 @@ const SingleVideo = (props) => {
 			className="flex flex-col bg-transparent m-8 rounded-lg px-1"
 			style={{ width: "320px" }}
 		>
-			<Link to={`/video/${video.video_id}`}>
+			<Link to={`/api/video/${video.video_id}`}>
 				<div className="relative group">
 					<img
 						src={video.thumbnail_url}
