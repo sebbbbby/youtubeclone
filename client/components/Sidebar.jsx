@@ -49,152 +49,176 @@ function Sidebar({ showSidebar, setShowSidebar }) {
   }, [showSidebar, setShowSidebar]);
 
   return (
-    <div id="sidebar" className={`sidebar ${showSidebar ? "show" : ""}`}>
+    <div
+      id="sidebar"
+      className={`sidebar ${
+        showSidebar ? "show" : ""
+      } bg-black w-48 absolute top-14 left-0 transition-left duration-100 z-50`}
+    >
       <div className="menu-images">
         <div className="flex justify-between items-center w-full h-1 px-12 sm:px-6 py-3 bg-[#202020] text-white"></div>
         <div className="flex flex-col justify-start items-start">
           <div className="image-stack">
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <GoHome className="h-7 mr-2" />
               <p>Home</p>
             </div>
-            <div className="flex items-center">
-              <img id="imgSrc" className="h-7 mr-2" src={shorts}></img>
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
+              <img
+                id="imgSrc"
+                className="h-7 mr-2"
+                src={shorts}
+                alt="Shorts"
+              ></img>
               <p>Shorts</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <MdSubscriptions className="h-7 mr-2" />
               <p>Subscriptions</p>
             </div>
-            <div className="divider"></div>
-            <div className="flex items-center">
+            <div className="border-t border-gray-100 my-4"></div>
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <MdOutlineVideoLibrary className="h-7 mr-2" />
               <p>Library</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <LuHistory className="h-7 mr-2" />
               <p>History</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <BsPlayBtn className="h-7 mr-2" />
               <p>Your videos</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <BiTimeFive className="h-7 mr-2" />
               <p>Watch later</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <BiLike className="h-7 mr-2" />
               <p>Liked videos</p>
             </div>
-            <div className="divider"></div>
-            <h2>Explore</h2>
-            <div className="flex items-center">
+            <div className="border-t border-gray-100 my-4"></div>
+            <h2 className="py-2 text-lg	font-bold">Explore</h2>
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <BsFire className="h-7 mr-2" />
               <p>Trending</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <LuShoppingBag className="h-7 mr-2" />
               <p>Shopping</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <IoMusicalNoteOutline className="h-7 mr-2" />
               <p>Music</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <BiMovie className="h-7 mr-2" />
               <p>Movies & TV</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <FiRadio className="h-7 mr-2" />
               <p>Live</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <CgGames className="h-7 mr-2" />
               <p>Gaming</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <IoNewspaperOutline className="h-7 mr-2" />
               <p>News</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <AiOutlineTrophy className="h-7 mr-2" />
               <p>Sports</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <BsLightbulb className="h-7 mr-2" />
               <p>Learning</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <GiHanger className="h-7 mr-2" />
               <p>Fashion & Beauty</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <MdPodcasts className="h-7 mr-2" />
               <p>Podcasts</p>
             </div>
-            <div className="divider"></div>
-            <h2>More from YouTube</h2>
-            <div className="flex items-center">
+            <div className="border-t border-gray-100 my-4"></div>
+            <h2 className="py-2 text-lg	font-bold">More from YouTube</h2>
+            <div className="flex items-center  hover:border border-gray-100 rounded-lg">
               <img className="h-7 mr-2" id="imgSrc" src={ytlogomobile} />
               <p>YouTube Premium</p>
             </div>
-            <div className="flex items-center">
-              <img src={hexYTimage} id="imgSrc" className="h-7 mr-2" />
+            <div className="flex items-center hover:border border-gray-100 rounded-lg ">
+              <img
+                src={hexYTimage}
+                id="imgSrc"
+                className="h-10 w-10 rounded-full mr-2"
+              />
               <p>YouTube Studio</p>
             </div>
-            <div className="flex items-center">
-              <img src={circYTimage} id="imgSrc" className="h-7 mr-2" />
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
+              <img
+                src={circYTimage}
+                id="imgSrc"
+                className="h-10 w-10 rounded-full mr-2"
+              />
               <p>YouTube Music</p>
             </div>
-            <div className="flex items-center">
-              <img src={YTKidsImg} id="imgSrc" className="h-7 mr-2" />
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
+              <img
+                src={YTKidsImg}
+                id="imgSrc"
+                className="h-10 w-10 rounded-full mr-2"
+              />
               <p>YouTube Kids</p>
             </div>
-            <div className="flex items-center">
-              <img src={YTTVimage} id="imgSrc" className="h-7 mr-2" />
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
+              <img
+                src={YTTVimage}
+                id="imgSrc"
+                className="h-10 w-10 rounded-full mr-2"
+              />
               <p>YouTube TV</p>
             </div>
-            <div className="divider"></div>
-            <div className="flex items-center">
+            <div className="border-t border-gray-100 my-4"></div>
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <AiOutlineSetting className="h-7 mr-2" />
               <p>Settings</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <AiOutlineFlag className="h-7 mr-2" />
               <p>Report history</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <FiHelpCircle className="h-7 mr-2" />
               <p>Help</p>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center hover:border border-gray-100 rounded-lg">
               <MdOutlineFeedback className="h-7 mr-2" />
               <p>Send feedback</p>
             </div>
-            <div className="divider"></div>
-            <div className="footer" class="style-scoper">
-              <div id="guide-links" class="style-scope">
+            <div className=" border-t border-gray-100 my-4"></div>
+            <div className="block w-1/4">
+              <div className="text-xs px-1 w-1/4 flex-auto mt-4 md:mt-2">
                 <a>About</a>
-                <a> Press</a>
-                <a> Copyright</a>
-                <a>Contact us</a>
-                <a>Creators</a>
-                <a>Advertise</a>
-                <a>Developers</a>
+                <a className="px-1">Press</a>
+                <a className="px-1">Copyright</a>
+                <a className="px-1">Contact us</a>
+                <a className="px-1">Creators</a>
+                <a className="px-1">Advertise</a>
+                <a className="px-1">Developers</a>
               </div>
-              <div id="guide-links" class="style-scope">
-                <a></a>
+              <div className="text-xs px-1 w-60 flex-auto mt-4 md:mt-4">
                 <a>Terms</a>
-                <a>Privacy</a>
-                <a>Policy & Safety</a>
-                <a>How YouTube works</a>
-                <a>Test new features</a>
-                <a>NFL Sunday Ticket</a>
+                <a className="px-1">Privacy</a>
+                <a className="px-1">Policy & Safety</a>
+                <a className="px-1">How YouTube works</a>
+                <a className="px-1">Test new features</a>
+                <a className="px-1">NFL Sunday Ticket</a>
               </div>
-              <div id="guide-links" class="style-scope">
-                <a></a>
-                <a>© 2023 Not Really Google</a>
+              <div className="text-xs px-1 w-60 flex-auto mt-4 md:mt-4">
+                <a>© 2023 Not Really Youtube</a>
               </div>
             </div>
           </div>
