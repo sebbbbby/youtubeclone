@@ -34,18 +34,18 @@ const App = () => {
   //     });
   // };
   // useEffect(() => {
-  //     getVideos()
-  // }, [])
+  //   getVideos();
+  // }, []);
   // const getVideos = () => {
-  //     axios
-  //         .get('/api/videos')
-  //         .then((response) => {
-  //             console.log(response.data)
-  //         })
-  //         .catch((error) => {
-  //             console.error('Error fetching videos', error)
-  //         })
-  // }
+  //   axios
+  //     .get("/api/videos")
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching videos", error);
+  //     });
+  // };
 
   const getVideos = () => {
     axios
@@ -64,13 +64,19 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/video/:videoId" element={<VideoDetails />} />
+        {/* <Route path="/" element={<Filters />} /> */}
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-wrap">
+              {videos &&
+                videos.map((video) => (
+                  <SingleVideo key={video.video_id} video={video} />
+                ))}
+            </div>
+          }
+        />
       </Routes>
-      <div className="flex flex-wrap">
-        {videos &&
-          videos.map((video) => (
-            <SingleVideo key={video.video_id} video={video} />
-          ))}
-      </div>
     </>
   );
 };
