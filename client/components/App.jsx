@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Header from "./Header.jsx";
 import { Routes, useNavigate, Route } from "react-router-dom";
-
 import SingleVideo from "./SingleVideo.jsx";
 import VideoDetails from "./SingleVideoPage/VideoDetails.jsx";
 

@@ -12,10 +12,12 @@ import {
 import { BsBell } from "react-icons/bs";
 import { BiVideoPlus } from "react-icons/bi";
 import axios from "axios";
+import Sidebar from "./Sidebar";
 
 function Header() {
   const [inputSearch, setInputSearch] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,13 +44,20 @@ function Header() {
       console.error(error);
     }
   };
+  const handleSidebarToggle = () => {
+    setShowSidebar((prevState) => !prevState);
+    console.log("sidebar clicked");
+  };
 
   return (
-    <div className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white">
+    <div
+      className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white"
+      onClick={handleSidebarToggle}
+    >
       <div className="flex cursor-pointer">
         <MenuIcon className="h-7 mr-2" />
         <img
-          className="w-12 sm:w-20 h-5 sm:h-7 object-contain"
+          className="w-10 sm:w-16 h-5 sm:h-7 object-contain"
           src={windowWidth <= 400 ? ytlogomobile : ytLogo}
           alt="youtube"
         />
@@ -83,6 +92,7 @@ function Header() {
         <DotsVerticalIcon className="h-6 cursor-pointer" />
         {/* Where user login can go */}
       </div>
+      {showSidebar && <Sidebar setShowSidebar={setShowSidebar} />}
     </div>
   );
 }
