@@ -50,12 +50,9 @@ function Header() {
   };
 
   return (
-    <div
-      className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white"
-      onClick={handleSidebarToggle}
-    >
+    <div className="flex justify-between items-center w-full h-10 px-2 sm:px-6 py-8 bg-[#202020] text-white">
       <div className="flex cursor-pointer">
-        <MenuIcon className="h-7 mr-2" />
+        <MenuIcon className="h-7 mr-2" onClick={handleSidebarToggle} />
         <img
           className="w-10 sm:w-16 h-5 sm:h-7 object-contain"
           src={windowWidth <= 400 ? ytlogomobile : ytLogo}
