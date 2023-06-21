@@ -47,16 +47,16 @@ function Sidebar({ showSidebar, setShowSidebar }) {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [showSidebar, setShowSidebar]);
+  //sidebar must be w-60 or the spacing will be off.
 
   return (
     <div
-      id="sidebar"
       className={`sidebar ${
         showSidebar ? "show" : ""
-      } bg-black w-48 absolute top-14 left-0 transition-left duration-100 z-50`}
+      } bg-black w-60 absolute top-14 left-0 transition-left duration-100 z-50`}
     >
-      <div className="menu-images">
-        <div className="flex justify-between items-center w-full h-1 px-12 sm:px-6 py-3 bg-[#202020] text-white"></div>
+      <div>
+        <div className="flex justify-between items-center w-full h-1 px-12 sm:px-6 bg-[#202020] text-white"></div>
         <div className="flex flex-col justify-start items-start">
           <div className="image-stack">
             <div className="flex items-center hover:border border-gray-100 rounded-lg">
@@ -158,27 +158,15 @@ function Sidebar({ showSidebar, setShowSidebar }) {
               <p>YouTube Studio</p>
             </div>
             <div className="flex items-center hover:border border-gray-100 rounded-lg">
-              <img
-                src={circYTimage}
-                id="imgSrc"
-                className="h-10 w-10 rounded-full mr-2"
-              />
+              <img src={circYTimage} className="h-10 w-10 rounded-full mr-2" />
               <p>YouTube Music</p>
             </div>
             <div className="flex items-center hover:border border-gray-100 rounded-lg">
-              <img
-                src={YTKidsImg}
-                id="imgSrc"
-                className="h-10 w-10 rounded-full mr-2"
-              />
+              <img src={YTKidsImg} className="h-10 w-10 rounded-full mr-2" />
               <p>YouTube Kids</p>
             </div>
             <div className="flex items-center hover:border border-gray-100 rounded-lg">
-              <img
-                src={YTTVimage}
-                id="imgSrc"
-                className="h-10 w-10 rounded-full mr-2"
-              />
+              <img src={YTTVimage} className="h-10 w-10 rounded-full mr-2" />
               <p>YouTube TV</p>
             </div>
             <div className="border-t border-gray-100 my-4"></div>

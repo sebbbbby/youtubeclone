@@ -64,7 +64,7 @@ function Header() {
       </div>
       <div className="flex items-center w-full sm:w-auto">
         <form
-          className="flex w-full sm:w-96 lg:w-128 items-center bg-[#313131] rounded-r-full"
+          className="flex w-full sm:w-96 lg:w-128 items-center bg-[#313131] rounded-full"
           onSubmit={(e) => {
             e.preventDefault();
             fetchData();
