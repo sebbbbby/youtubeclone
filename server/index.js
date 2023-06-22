@@ -157,7 +157,7 @@ app.get("/api/videos", async (req, res) => {
 				part: "snippet,contentDetails,statistics",
 				chart: "mostPopular",
 				maxResults: 100,
-				pageToken: "CGQQAA",
+				pageToken: "CJYBEAA",
 				key: process.env.API_KEY,
 			},
 		});
