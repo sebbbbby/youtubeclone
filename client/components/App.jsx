@@ -60,7 +60,7 @@ const App = () => {
 
 	return (
 		<>
-			<Header />
+			<Header setVideos={setVideos} />
 			<Routes>
 				<Route path="/api/video/:videoId" element={<VideoDetails />} />
 				{/* <Route path="/" element={<Filters />} /> */}
