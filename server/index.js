@@ -274,7 +274,7 @@ app.post("/api/videos/comments/:videoId", async (req, res) => {
     console.error(`Invalid data - Video ID: ${videoId}, Comment: ${comment}`);
     return res.status(400).send("Invalid video id or comment");
   }
-
+  console.log(typeof videoId, typeof comment);
   try {
     await sql`INSERT INTO comments (video_id, comment) VALUES (${videoId}, ${comment})`;
     res.send("Comment added");
