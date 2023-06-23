@@ -20,9 +20,6 @@ const Filters = (props) => {
     }
   }
   
- // let filters = res.data;
- // filters.items.map((item, index) => {console.log(item.snippet.title)}).
- // https://www.googleapis.com/youtube/v3/videoCategories?key=AIzaSyDc9Yh-MRf_uWq2TYn0fDh9XzHW7FeNMUg&regionCode=US&part=snippet
 
 //   useEffect(() => {
 //       const fetchFilters = async () => {
