@@ -19,16 +19,21 @@ function Comments({ video }) {
     };
     fetchComments();
   }, []);
-  console.log(comments);
+  // console.log(comments);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputComment) return;
-    console.log("hello");
+    // console.log("hello");
     const comment = inputComment;
-    const allComments = axios.post(`/api/videos/comments/${video.video_id}`, {
-      comment,
-    });
+    const response = await axios.post(
+      `/api/videos/comments/${video.video_id}`,
+      {
+        comment,
+      }
+    );
+    const allComments = response.data;
+    // console.log(allComments);
     setComments(allComments);
     setInputComment("");
   };
@@ -47,11 +52,14 @@ function Comments({ video }) {
         />
         <button type="submit">Submit</button>
       </form>
-      {comments && comments.map((comment) => (
-        <div className="flex flex-row items-start">
-          <div className="flex flex-col">{comment.comment}</div>
-        </div>
-      ))}
+
+      {comments &&
+        comments.map((comment) => (
+          <div className="flex flex-row items-start">
+            <div className="flex flex-col">{comment.comment}</div>
+          </div>
+        ))}
+
     </div>
   );
 }
