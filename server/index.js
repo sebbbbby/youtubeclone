@@ -16,14 +16,15 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/videos", async (req, res) => {
-    try {
-        const videos = await sql`SELECT * FROM youtubevideos`;
-        res.json(videos);
-    
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("An error occurred");
-    }
+
+  try {
+    const videos = await sql`SELECT * FROM youtubevideos`;
+    res.json(videos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
+  }
+
 });
 
 app.get("/api/categories", async (req, res) => {
@@ -67,40 +68,42 @@ console.log('TEST');
 // })
 
 app.get("/api/search/:search", async (req, res) => {
-    try {
-        const searchVideo = req.params.search;
-        const searchWords = searchVideo.split(" ");
 
-        let query = "SELECT * FROM youtubevideos WHERE ";
+  try {
+    const searchVideo = req.params.search;
+    const searchWords = searchVideo.split(" ");
 
-        for (let i = 0; i < searchWords.length; i++) {
-            const word = searchWords[i];
-            if (
-                word.toUpperCase().includes("DROP") ||
-                word.toUpperCase().includes("TABLE") ||
-                word.toUpperCase().includes("TRUNCATE") ||
-                word.toUpperCase().includes("SELECT") ||
-                word.toUpperCase().includes("UPDATE") ||
-                word.toUpperCase().includes("*")
-            ) {
-                //does not actually send a error status of 420 but it does stop the user from searching the words above
-                res.status(420);
-                return;
-            }
+    let query = "SELECT * FROM youtubevideos WHERE ";
 
-            query += `description ILIKE '%${searchWords[i]}%'`;
-            if (i < searchWords.length - 1) {
-                query += " OR ";
-            }
-        }
-        //unsafe allows for a lot of raw SQL data so thats why there are a few 'banned' words that users can not use to mess up our table on accident
-        const result = await sql.unsafe(query);
+    for (let i = 0; i < searchWords.length; i++) {
+      const word = searchWords[i];
+      if (
+        word.toUpperCase().includes("DROP") ||
+        word.toUpperCase().includes("TABLE") ||
+        word.toUpperCase().includes("TRUNCATE") ||
+        word.toUpperCase().includes("SELECT") ||
+        word.toUpperCase().includes("UPDATE") ||
+        word.toUpperCase().includes("*")
+      ) {
+        //does not actually send a error status of 420 but it does stop the user from searching the words above
+        res.status(420);
+        return;
+      }
 
-        res.json(result);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error occurred while fetching videos");
+      query += `description ILIKE '%${searchWords[i]}%'`;
+      if (i < searchWords.length - 1) {
+        query += " OR ";
+      }
     }
+    //unsafe allows for a lot of raw SQL data so thats why there are a few 'banned' words that users can not use to mess up our table on accident
+    const result = await sql.unsafe(query);
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error occurred while fetching videos");
+  }
+
 });
 
 //this slightly redudant code allows us to better tailor out data base if we want to add specific youtube videos into our database
@@ -188,23 +191,24 @@ app.get("/api/search/:search", async (req, res) => {
 //          },
 //      });
 
-//      const videoData = response.data.items.map((item) => {
-//          return {
-//              video_id: item.id || null,
-//              title: item.snippet.title || null,
-//              description: item.snippet.description || null,
-//              thumbnail_url: item.snippet.thumbnails.medium.url || null,
-//              url: `https://www.youtube.com/watch?v=${item.id}` || null,
-//              published_at: item.snippet.publishedAt || null,
-//              channel_id: item.snippet.channelId || null,
-//              channel_title: item.snippet.channelTitle || null,
-//              view_count: item.statistics.viewCount || null,
-//              like_count: item.statistics.likeCount || null,
-//              dislike_count: item.statistics.dislikeCount || null,
-//          };
-//      });
-//      for (const video of videoData) {
-//          await sql`INSERT INTO youtubevideos (
+
+//     const videoData = response.data.items.map((item) => {
+//       return {
+//         video_id: item.id || null,
+//         title: item.snippet.title || null,
+//         description: item.snippet.description || null,
+//         thumbnail_url: item.snippet.thumbnails.medium.url || null,
+//         url: `https://www.youtube.com/watch?v=${item.id}` || null,
+//         published_at: item.snippet.publishedAt || null,
+//         channel_id: item.snippet.channelId || null,
+//         channel_title: item.snippet.channelTitle || null,
+//         view_count: item.statistics.viewCount || null,
+//         like_count: item.statistics.likeCount || null,
+//         dislike_count: item.statistics.dislikeCount || null,
+//       };
+//     });
+//     for (const video of videoData) {
+//       await sql`INSERT INTO youtubevideos (
 //         video_id,
 //         title,
 //         description,
@@ -229,26 +233,28 @@ app.get("/api/search/:search", async (req, res) => {
 //         ${video.like_count},
 //         ${video.dislike_count}
 //       ) ON CONFLICT (video_id) DO NOTHING`;
-//      }
-//      res.send(response.data);
-//  } catch (error) {
-//      console.error(error);
-//      res.status(500).send("Error occurred while fetching videos");
-//  }
+//     }
+//     res.send(response.data);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Error occurred while fetching videos");
+//   }
 // });
 
 //this is pulling from out DB NOT from the API
 //the description LIKE is searching for the keywork within a videos description
 app.get("/api/search/:searchVideo", async (req, res) => {
-    try {
-        const searchVideo = req.params.searchVideo;
-        const response =
-            await sql`SELECT * FROM youtubevideos WHERE description LIKE %${searchVideo}%`;
-        res.send(response);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error occurred while fetching videos");
-    }
+
+  try {
+    const searchVideo = req.params.searchVideo;
+    const response =
+      await sql`SELECT * FROM youtubevideos WHERE description LIKE %${searchVideo}%`;
+    res.send(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error occurred while fetching videos");
+  }
+
 });
 // app.get('/search/:searchVideo', async (req, res) => {
 //     try {
@@ -264,22 +270,57 @@ app.get("/api/search/:searchVideo", async (req, res) => {
 // })
 
 app.get("/api/videos/:videoId", async (req, res) => {
-    try {
-        const videoId = req.params.videoId;
-        const video =
-            await sql`SELECT * FROM youtubevideos WHERE video_id = ${videoId}`;
 
-        if (video.length > 0) {
-            res.json(video[0]);
-        } else {
-            res.status(404).send("Video not found");
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("An error occurred");
+  try {
+    const videoId = req.params.videoId;
+    const video =
+      await sql`SELECT * FROM youtubevideos WHERE video_id = ${videoId}`;
+
+    if (video.length > 0) {
+      res.json(video[0]);
+    } else {
+      res.status(404).send("Video not found");
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+app.get("/api/videos/comments/:videoId", async (req, res) => {
+  try {
+    const videoId = req.params.videoId;
+    const comments =
+      await sql`SELECT comment FROM comments WHERE video_id = ${videoId}`;
+    res.json(comments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred");
+  }
+});
+app.post("/api/videos/comments/:videoId", async (req, res) => {
+  const videoId = req.params.videoId;
+  const comment = req.body.comment;
+
+  if (!videoId || !comment) {
+    console.error(`Invalid data - Video ID: ${videoId}, Comment: ${comment}`);
+    return res.status(400).send("Invalid video id or comment");
+  }
+  // console.log(typeof videoId, typeof comment);
+  try {
+    await sql`INSERT INTO comments (video_id, comment) VALUES (${videoId}, ${comment})`;
+    const allComments =
+      await sql`SELECT comment FROM comments WHERE video_id = ${videoId}`;
+    res.send(allComments);
+  } catch (error) {
+    // console.error(`Error while adding comment for video ${videoId}`);
+    // console.error(`Comment text: ${comment}`);
+    console.error(`Error: ${error}`);
+    res.status(500).send("An error occurred");
+  }
 });
 
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
+
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import ytLogo from "./Images/ytlogo.png";
 import ytlogomobile from "./Images/ytlogomobile.png";
 import {
@@ -15,12 +15,12 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 
 function Header(props) {
-	const { setVideos } = props;
-	console.log(props);
+	const { setVideos, fetchVideos } = props;
 	const [inputSearch, setInputSearch] = useState("");
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 	const [showSidebar, setShowSidebar] = useState(false);
-
+	const navigate = useNavigate();
+	console.log(props);
 	useEffect(() => {
 		const handleResize = () => {
 			setWindowWidth(window.innerWidth);
@@ -39,7 +39,9 @@ function Header(props) {
 			const response = await fetch(`/api/search/${inputSearch}`);
 			const json = await response.json();
 			//this json variable is the array of objects that store the information
+			setInputSearch("");
 			setVideos(json);
+			navigate("/search-results");
 		} catch (error) {
 			console.error(error);
 		}
@@ -58,6 +60,9 @@ function Header(props) {
 						className="w-10 sm:w-16 h-5 sm:h-7 object-contain"
 						src={windowWidth <= 400 ? ytlogomobile : ytLogo}
 						alt="youtube"
+						onClick={() => {
+							fetchVideos();
+						}}
 					/>
 				</Link>
 			</div>

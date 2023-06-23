@@ -8,18 +8,18 @@ import Filters from './Filters';
 
 const App = () => {
 	const [videos, setVideos] = useState(null);
+	async function fetchVideos() {
+		try {
+			const res = await axios.get("/api/videos");
+			if (res.data.length > 0) {
+				setVideos(res.data);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	useEffect(() => {
-		const fetchVideos = async () => {
-			try {
-				const res = await axios.get("/api/videos");
-				if (res.data.length > 0) {
-					setVideos(res.data);
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		};
 		fetchVideos();
 	}, []);
 
@@ -61,13 +61,26 @@ const App = () => {
 
 	return (
 		<>
+
 			<Header setVideos={setVideos} />
 			<Filters setVideos={setVideos} />
+			<Header setVideos={setVideos} fetchVideos={fetchVideos} />
 			<Routes>
 				<Route path="/api/video/:videoId" element={<VideoDetails />} />
 				{/* <Route path="/" element={<Filters />} /> */}
 				<Route
 					path="/"
+					element={
+						<div className="flex flex-wrap">
+							{videos &&
+								videos.map((video) => (
+									<SingleVideo key={video.video_id} video={video} />
+								))}
+						</div>
+					}
+				/>
+				<Route
+					path="/search-results"
 					element={
 						<div className="flex flex-wrap">
 							{videos &&
