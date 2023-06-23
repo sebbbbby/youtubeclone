@@ -265,15 +265,23 @@ app.get("/api/videos/comments/:videoId", async (req, res) => {
     res.status(500).send("An error occurred");
   }
 });
-
 app.post("/api/videos/comments/:videoId", async (req, res) => {
+  const videoId = req.params.videoId;
+  const comment = req.body.comment;
+
+  // Add some basic data validation
+  if (!videoId || !comment) {
+    console.error(`Invalid data - Video ID: ${videoId}, Comment: ${comment}`);
+    return res.status(400).send("Invalid video id or comment");
+  }
+
   try {
-    const videoId = req.params.videoId;
-    const comment = req.body.comment;
     await sql`INSERT INTO comments (video_id, comment) VALUES (${videoId}, ${comment})`;
     res.send("Comment added");
   } catch (error) {
-    console.error(error);
+    console.error(`Error while adding comment for video ${videoId}`);
+    console.error(`Comment text: ${comment}`);
+    console.error(`Error: ${error}`);
     res.status(500).send("An error occurred");
   }
 });
