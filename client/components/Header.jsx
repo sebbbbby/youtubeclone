@@ -14,7 +14,9 @@ import { BiVideoPlus } from "react-icons/bi";
 import axios from "axios";
 import Sidebar from "./Sidebar";
 
-function Header() {
+function Header(props) {
+	const { setVideos } = props;
+	console.log(props);
 	const [inputSearch, setInputSearch] = useState("");
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 	const [showSidebar, setShowSidebar] = useState(false);
@@ -34,12 +36,10 @@ function Header() {
 	const fetchData = async () => {
 		console.log(inputSearch);
 		try {
-			const response = await fetch(
-				`http://localhost:3000/search/${inputSearch}`
-			);
+			const response = await fetch(`/api/search/${inputSearch}`);
 			const json = await response.json();
 			//this json variable is the array of objects that store the information
-			console.log(json);
+			setVideos(json);
 		} catch (error) {
 			console.error(error);
 		}

@@ -151,16 +151,16 @@ app.get("/api/search/:search", async (req, res) => {
 // })
 
 // app.get("/api/videos", async (req, res) => {
-//   try {
-//     const response = await axios.get(youtubeVideoPopular, {
-//       params: {
-//         part: "snippet,contentDetails,statistics",
-//         chart: "mostPopular",
-//         maxResults: 100,
-//         pageToken: "CGQQAA",
-//         key: process.env.API_KEY,
-//       },
-//     });
+// 	try {
+// 		const response = await axios.get(youtubeVideoPopular, {
+// 			params: {
+// 				part: "snippet,contentDetails,statistics",
+// 				chart: "mostPopular",
+// 				maxResults: 100,
+// 				pageToken: "CJYBEAA",
+// 				key: process.env.API_KEY,
+// 			},
+// 		});
 
 //     const videoData = response.data.items.map((item) => {
 //       return {
