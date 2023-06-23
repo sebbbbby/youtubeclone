@@ -16,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/videos", async (req, res) => {
+
   try {
     const videos = await sql`SELECT * FROM youtubevideos`;
     res.json(videos);
@@ -23,7 +24,33 @@ app.get("/api/videos", async (req, res) => {
     console.error(error);
     res.status(500).send("An error occurred");
   }
+
 });
+
+app.get("/api/categories", async (req, res) => {
+console.log('TEST');    
+//  try {
+//         const response = await axios.get(
+//             `https://www.googleapis.com/youtube/v3/videoCateogories`,
+//             {
+//                 //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
+//                 params: {
+//                     part: 'snippet',
+//                     regionCode: 'US',
+//                     key: `${api_key}`,
+//                 },
+//             }
+//         )
+//      res.json(response);
+// console.log('respones', res) ;   
+//  } catch (error) {
+//      console.error(error);
+//      res.status(500).send("An error occurred");
+//  }
+});
+
+
+
 //below is the the web app specific code to be used throughout the website to search for keywords/category/etc. CAVEAT- the word MUST be in the description, so its not based off youtube categories.
 
 //will keep the orignal just incase things get wild in the future
@@ -41,6 +68,7 @@ app.get("/api/videos", async (req, res) => {
 // })
 
 app.get("/api/search/:search", async (req, res) => {
+
   try {
     const searchVideo = req.params.search;
     const searchWords = searchVideo.split(" ");
@@ -75,6 +103,7 @@ app.get("/api/search/:search", async (req, res) => {
     console.error(error);
     res.status(500).send("Error occurred while fetching videos");
   }
+
 });
 
 //this slightly redudant code allows us to better tailor out data base if we want to add specific youtube videos into our database
@@ -151,16 +180,17 @@ app.get("/api/search/:search", async (req, res) => {
 // })
 
 // app.get("/api/videos", async (req, res) => {
-// 	try {
-// 		const response = await axios.get(youtubeVideoPopular, {
-// 			params: {
-// 				part: "snippet,contentDetails,statistics",
-// 				chart: "mostPopular",
-// 				maxResults: 100,
-// 				pageToken: "CJYBEAA",
-// 				key: process.env.API_KEY,
-// 			},
-// 		});
+//  try {
+//      const response = await axios.get(youtubeVideoPopular, {
+//          params: {
+//              part: "snippet,contentDetails,statistics",
+//              chart: "mostPopular",
+//              maxResults: 100,
+//              pageToken: "CJYBEAA",
+//              key: process.env.API_KEY,
+//          },
+//      });
+
 
 //     const videoData = response.data.items.map((item) => {
 //       return {
@@ -214,6 +244,7 @@ app.get("/api/search/:search", async (req, res) => {
 //this is pulling from out DB NOT from the API
 //the description LIKE is searching for the keywork within a videos description
 app.get("/api/search/:searchVideo", async (req, res) => {
+
   try {
     const searchVideo = req.params.searchVideo;
     const response =
@@ -223,6 +254,7 @@ app.get("/api/search/:searchVideo", async (req, res) => {
     console.error(error);
     res.status(500).send("Error occurred while fetching videos");
   }
+
 });
 // app.get('/search/:searchVideo', async (req, res) => {
 //     try {
@@ -238,6 +270,7 @@ app.get("/api/search/:searchVideo", async (req, res) => {
 // })
 
 app.get("/api/videos/:videoId", async (req, res) => {
+
   try {
     const videoId = req.params.videoId;
     const video =
@@ -289,4 +322,5 @@ app.post("/api/videos/comments/:videoId", async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
+
 });
