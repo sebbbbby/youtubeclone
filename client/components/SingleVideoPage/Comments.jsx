@@ -52,12 +52,14 @@ function Comments({ video }) {
         />
         <button type="submit">Submit</button>
       </form>
+
       {comments &&
         comments.map((comment) => (
           <div className="flex flex-row items-start">
             <div className="flex flex-col">{comment.comment}</div>
           </div>
         ))}
+
     </div>
   );
 }
