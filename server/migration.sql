@@ -19,9 +19,9 @@
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     video_id VARCHAR(255),
-    comment TEXT[],
+    comment TEXT,
     timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (video_id) REFERENCES youtubevideos(video_id)
 );
 
-INSERT INTO comments (video_id, comment) VALUES ('-7fuHEEmEjs', '{"I love this song"}');
+-- INSERT INTO comments (video_id, comment) VALUES ('-7fuHEEmEjs', '{"I love this song"}');

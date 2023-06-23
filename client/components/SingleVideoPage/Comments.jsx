@@ -19,25 +19,24 @@ function Comments({ video }) {
     };
     fetchComments();
   }, []);
+  console.log(comments);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!inputComment) return;
     console.log("hello");
     const comment = inputComment;
-    axios.post(`/api/videos/comments/${video.video_id}`, { comment });
+    const allComments = axios.post(`/api/videos/comments/${video.video_id}`, {
+      comment,
+    });
+    setComments(allComments);
+    setInputComment("");
   };
 
   return (
     <div className="flex flex-col text-white">
       {" "}
       Comments
-      {comments.map((comment) => (
-        <div className="flex flex-row items-start">
-          <div className="flex flex-col">
-            <div className="flex flex-row text-white"></div>
-          </div>
-        </div>
-      ))}
       <form onSubmit={handleSubmit}>
         <input
           className="text-white"
@@ -48,6 +47,11 @@ function Comments({ video }) {
         />
         <button type="submit">Submit</button>
       </form>
+      {comments.map((comment) => (
+        <div className="flex flex-row items-start">
+          <div className="flex flex-col">{comment.comment}</div>
+        </div>
+      ))}
     </div>
   );
 }

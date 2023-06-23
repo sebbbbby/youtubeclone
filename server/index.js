@@ -269,7 +269,6 @@ app.post("/api/videos/comments/:videoId", async (req, res) => {
   const videoId = req.params.videoId;
   const comment = req.body.comment;
 
-  // Add some basic data validation
   if (!videoId || !comment) {
     console.error(`Invalid data - Video ID: ${videoId}, Comment: ${comment}`);
     return res.status(400).send("Invalid video id or comment");
@@ -277,7 +276,9 @@ app.post("/api/videos/comments/:videoId", async (req, res) => {
   console.log(typeof videoId, typeof comment);
   try {
     await sql`INSERT INTO comments (video_id, comment) VALUES (${videoId}, ${comment})`;
-    res.send("Comment added");
+    const allComments =
+      await sql`SELECT comment FROM comments WHERE video_id = ${videoId}`;
+    res.send(allComments);
   } catch (error) {
     console.error(`Error while adding comment for video ${videoId}`);
     console.error(`Comment text: ${comment}`);
