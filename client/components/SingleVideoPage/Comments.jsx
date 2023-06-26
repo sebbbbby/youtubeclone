@@ -64,15 +64,14 @@ function Comments({ video }) {
           </button>
         </div>
       </form>
-
       {comments &&
         comments.map((comment, index) => (
           <div key={index} className="flex flex-row items-start mt-4">
             <div className="flex flex-col text-white">{comment.comment}</div>
           </div>
         ))}
-
     </div>
   );
 }
+
 export default Comments;
