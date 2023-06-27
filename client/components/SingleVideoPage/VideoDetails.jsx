@@ -96,7 +96,7 @@ function VideoDetails() {
                   </div>
                   <div className="flex items-center justify-center h-11 px-4 rounded-3xl bg-white/[0.15] ml-4">
                     <AiOutlineDislike className="text-xl text-white mr-2" />
-                    <span>{shortenViewCount(video?.view_count)} Views</span>
+                    <span>Dislike</span>
                   </div>
                   <div className="flex items-center justify-center h-11 px-4 rounded-3xl bg-white/[0.15] ml-4">
                     <RiShareForwardLine className="text-xl text-white mr-2" />
@@ -136,9 +136,7 @@ function VideoDetails() {
                 )}
               </div>
               <div className="">
-                {video && (
-                  <Comments key={video.video_id} video={video} />
-                )}
+                {video && <Comments key={video.video_id} video={video} />}
               </div>
             </>
           )}

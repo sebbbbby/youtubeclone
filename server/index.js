@@ -16,7 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/videos", async (req, res) => {
-
   try {
     const videos = await sql`SELECT * FROM youtubevideos`;
     res.json(videos);
@@ -24,32 +23,29 @@ app.get("/api/videos", async (req, res) => {
     console.error(error);
     res.status(500).send("An error occurred");
   }
-
 });
 
 app.get("/api/categories", async (req, res) => {
-console.log('TEST');    
-//  try {
-//         const response = await axios.get(
-//             `https://www.googleapis.com/youtube/v3/videoCateogories`,
-//             {
-//                 //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
-//                 params: {
-//                     part: 'snippet',
-//                     regionCode: 'US',
-//                     key: `${api_key}`,
-//                 },
-//             }
-//         )
-//      res.json(response);
-// console.log('respones', res) ;   
-//  } catch (error) {
-//      console.error(error);
-//      res.status(500).send("An error occurred");
-//  }
+  console.log("TEST");
+  //  try {
+  //         const response = await axios.get(
+  //             `https://www.googleapis.com/youtube/v3/videoCateogories`,
+  //             {
+  //                 //we can adjust the params based on the google docs to get more results, order it differently and have our type return different stuff -sp
+  //                 params: {
+  //                     part: 'snippet',
+  //                     regionCode: 'US',
+  //                     key: `${api_key}`,
+  //                 },
+  //             }
+  //         )
+  //      res.json(response);
+  // console.log('respones', res) ;
+  //  } catch (error) {
+  //      console.error(error);
+  //      res.status(500).send("An error occurred");
+  //  }
 });
-
-
 
 //below is the the web app specific code to be used throughout the website to search for keywords/category/etc. CAVEAT- the word MUST be in the description, so its not based off youtube categories.
 
@@ -68,7 +64,6 @@ console.log('TEST');
 // })
 
 app.get("/api/search/:search", async (req, res) => {
-
   try {
     const searchVideo = req.params.search;
     const searchWords = searchVideo.split(" ");
@@ -103,7 +98,6 @@ app.get("/api/search/:search", async (req, res) => {
     console.error(error);
     res.status(500).send("Error occurred while fetching videos");
   }
-
 });
 
 //this slightly redudant code allows us to better tailor out data base if we want to add specific youtube videos into our database
@@ -179,72 +173,70 @@ app.get("/api/search/:search", async (req, res) => {
 //     }
 // })
 
-// app.get("/api/videos", async (req, res) => {
-//  try {
-//      const response = await axios.get(youtubeVideoPopular, {
-//          params: {
-//              part: "snippet,contentDetails,statistics",
-//              chart: "mostPopular",
-//              maxResults: 100,
-//              pageToken: "CJYBEAA",
-//              key: process.env.API_KEY,
-//          },
-//      });
+app.get("/api/videos", async (req, res) => {
+  try {
+    const response = await axios.get(youtubeVideoPopular, {
+      params: {
+        part: "snippet,contentDetails,statistics",
+        chart: "mostPopular",
+        maxResults: 100,
+        pageToken: "CJYBEAA",
+        key: process.env.API_KEY,
+      },
+    });
 
-
-//     const videoData = response.data.items.map((item) => {
-//       return {
-//         video_id: item.id || null,
-//         title: item.snippet.title || null,
-//         description: item.snippet.description || null,
-//         thumbnail_url: item.snippet.thumbnails.medium.url || null,
-//         url: `https://www.youtube.com/watch?v=${item.id}` || null,
-//         published_at: item.snippet.publishedAt || null,
-//         channel_id: item.snippet.channelId || null,
-//         channel_title: item.snippet.channelTitle || null,
-//         view_count: item.statistics.viewCount || null,
-//         like_count: item.statistics.likeCount || null,
-//         dislike_count: item.statistics.dislikeCount || null,
-//       };
-//     });
-//     for (const video of videoData) {
-//       await sql`INSERT INTO youtubevideos (
-//         video_id,
-//         title,
-//         description,
-//         thumbnail_url,
-//         url,
-//         published_at,
-//         channel_id,
-//         channel_title,
-//         view_count,
-//         like_count,
-//         dislike_count
-//       ) VALUES (
-//         ${video.video_id},
-//         ${video.title},
-//         ${video.description},
-//         ${video.thumbnail_url},
-//         ${video.url},
-//         ${video.published_at},
-//         ${video.channel_id},
-//         ${video.channel_title},
-//         ${video.view_count},
-//         ${video.like_count},
-//         ${video.dislike_count}
-//       ) ON CONFLICT (video_id) DO NOTHING`;
-//     }
-//     res.send(response.data);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Error occurred while fetching videos");
-//   }
-// });
+    const videoData = response.data.items.map((item) => {
+      return {
+        video_id: item.id || null,
+        title: item.snippet.title || null,
+        description: item.snippet.description || null,
+        thumbnail_url: item.snippet.thumbnails.medium.url || null,
+        url: `https://www.youtube.com/watch?v=${item.id}` || null,
+        published_at: item.snippet.publishedAt || null,
+        channel_id: item.snippet.channelId || null,
+        channel_title: item.snippet.channelTitle || null,
+        view_count: item.statistics.viewCount || null,
+        like_count: item.statistics.likeCount || null,
+        dislike_count: item.statistics.dislikeCount || null,
+      };
+    });
+    for (const video of videoData) {
+      await sql`INSERT INTO youtubevideos (
+        video_id,
+        title,
+        description,
+        thumbnail_url,
+        url,
+        published_at,
+        channel_id,
+        channel_title,
+        view_count,
+        like_count,
+        dislike_count
+      ) VALUES (
+        ${video.video_id},
+        ${video.title},
+        ${video.description},
+        ${video.thumbnail_url},
+        ${video.url},
+        ${video.published_at},
+        ${video.channel_id},
+        ${video.channel_title},
+        ${video.view_count},
+        ${video.like_count},
+        ${video.dislike_count}
+      ) ON CONFLICT (video_id) DO NOTHING`;
+    }
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error occurred while fetching videos");
+  }
+});
 
 //this is pulling from out DB NOT from the API
 //the description LIKE is searching for the keywork within a videos description
 app.get("/api/search/:searchVideo", async (req, res) => {
-
   try {
     const searchVideo = req.params.searchVideo;
     const response =
@@ -254,7 +246,6 @@ app.get("/api/search/:searchVideo", async (req, res) => {
     console.error(error);
     res.status(500).send("Error occurred while fetching videos");
   }
-
 });
 // app.get('/search/:searchVideo', async (req, res) => {
 //     try {
@@ -270,7 +261,6 @@ app.get("/api/search/:searchVideo", async (req, res) => {
 // })
 
 app.get("/api/videos/:videoId", async (req, res) => {
-
   try {
     const videoId = req.params.videoId;
     const video =
@@ -322,5 +312,4 @@ app.post("/api/videos/comments/:videoId", async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
-
 });
